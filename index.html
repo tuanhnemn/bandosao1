@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Bản đồ sao mô phỏng</title>
+  <style>
+    body { margin: 0; background: black; color: white; }
+    canvas { display: block; margin: auto; background: #000; }
+  </style>
+</head>
+<body>
+  <canvas id="starMap" width="600" height="600"></canvas>
+  <script>
+    const canvas = document.getElementById('starMap');
+    const ctx = canvas.getContext('2d');
+
+    // Vẽ nền trời sao
+    function drawStars(count) {
+      for (let i = 0; i < count; i++) {
+        const x = Math.random() * canvas.width;
+        const y = Math.random() * canvas.height;
+        const radius = Math.random() * 1.5;
+        ctx.beginPath();
+        ctx.arc(x, y, radius, 0, 2 * Math.PI);
+        ctx.fillStyle = 'white';
+        ctx.fill();
+      }
+    }
+
+    // Vẽ vòng tròn cung hoàng đạo
+    function drawZodiacCircle() {
+      ctx.beginPath();
+      ctx.arc(300, 300, 250, 0, 2 * Math.PI);
+      ctx.strokeStyle = 'white';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    }
+
+    // Vẽ các điểm đại diện cho hành tinh (mô phỏng)
+    function drawPlanets() {
+      const planets = ['Mặt Trời', 'Mặt Trăng', 'Sao Kim', 'Sao Hỏa', 'Sao Mộc', 'Sao Thổ'];
+      planets.forEach((planet, i) => {
+        const angle = i * (2 * Math.PI / planets.length);
+        const x = 300 + 200 * Math.cos(angle);
+        const y = 300 + 200 * Math.sin(angle);
+        ctx.beginPath();
+        ctx.arc(x, y, 6, 0, 2 * Math.PI);
+        ctx.fillStyle = 'yellow';
+        ctx.fill();
+        ctx.font = '12px sans-serif';
+        ctx.fillText(planet, x + 10, y);
+      });
+    }
+
+    drawStars(200);
+    drawZodiacCircle();
+    drawPlanets();
+  </script>
+</body>
+</html>
